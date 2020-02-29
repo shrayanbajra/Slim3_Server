@@ -7,9 +7,6 @@ use JsonSerializable;
 
 class ActionPayload implements JsonSerializable
 {
-    /**
-     * @var int
-     */
     private $statusCode;
 
     /**
@@ -37,9 +34,6 @@ class ActionPayload implements JsonSerializable
         $this->error = $error;
     }
 
-    /**
-     * @return int
-     */
     public function getStatusCode(): int
     {
         return $this->statusCode;

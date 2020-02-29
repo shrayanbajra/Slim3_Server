@@ -1,11 +1,13 @@
 <?php 
     class DbOperations{
         private $con; 
+        
         function __construct(){
             require_once dirname(__FILE__) . '/DbConnect.php';
             $db = new DbConnect; 
             $this->con = $db->connect(); 
         }
+        
         public function createUser($email, $password, $name, $school){
            if(!$this->isEmailExist($email)){
                 $stmt = $this->con->prepare("INSERT INTO users (email, password, name, school) VALUES (?, ?, ?, ?)");
@@ -18,6 +20,7 @@
            }
            return USER_EXISTS; 
         }
+        
         public function userLogin($email, $password){
             if($this->isEmailExist($email)){
                 $hashed_password = $this->getUsersPasswordByEmail($email); 
@@ -30,6 +33,7 @@
                 return USER_NOT_FOUND; 
             }
         }
+        
         private function getUsersPasswordByEmail($email){
             $stmt = $this->con->prepare("SELECT password FROM users WHERE email = ?");
             $stmt->bind_param("s", $email);
@@ -38,6 +42,7 @@
             $stmt->fetch(); 
             return $password; 
         }
+        
         public function getAllUsers(){
             $stmt = $this->con->prepare("SELECT id, email, name, school FROM users;");
             $stmt->execute(); 
@@ -53,6 +58,7 @@
             }             
             return $users; 
         }
+        
         public function getUserByEmail($email){
             $stmt = $this->con->prepare("SELECT id, email, name, school FROM users WHERE email = ?");
             $stmt->bind_param("s", $email);
@@ -66,6 +72,7 @@
             $user['school'] = $school; 
             return $user; 
         }
+        
         public function updateUser($email, $name, $school, $id){
             $stmt = $this->con->prepare("UPDATE users SET email = ?, name = ?, school = ? WHERE id = ?");
             $stmt->bind_param("sssi", $email, $name, $school, $id);
@@ -73,6 +80,7 @@
                 return true; 
             return false;
         }
+        
         public function updatePassword($currentpassword, $newpassword, $email){
             $hashed_password = $this->getUsersPasswordByEmail($email);
             
@@ -88,6 +96,7 @@
                 return PASSWORD_DO_NOT_MATCH; 
             }
         }
+        
         public function deleteUser($id){
             $stmt = $this->con->prepare("DELETE FROM users WHERE id = ?");
             $stmt->bind_param("i", $id);
@@ -95,6 +104,7 @@
                 return true; 
             return false; 
         }
+        
         private function isEmailExist($email){
             $stmt = $this->con->prepare("SELECT id FROM users WHERE email = ?");
             $stmt->bind_param("s", $email);

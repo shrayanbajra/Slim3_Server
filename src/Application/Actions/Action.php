@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Application\Actions;
@@ -16,15 +17,7 @@ abstract class Action
      * @var LoggerInterface
      */
     protected $logger;
-
-    /**
-     * @var Request
-     */
     protected $request;
-
-    /**
-     * @var Response
-     */
     protected $response;
 
     /**

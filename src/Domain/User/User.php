@@ -12,19 +12,8 @@ class User implements JsonSerializable
      */
     private $id;
 
-    /**
-     * @var string
-     */
     private $username;
-
-    /**
-     * @var string
-     */
     private $firstName;
-
-    /**
-     * @var string
-     */
     private $lastName;
 
     /**
@@ -49,25 +38,16 @@ class User implements JsonSerializable
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getUsername(): string
     {
         return $this->username;
     }
 
-    /**
-     * @return string
-     */
     public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    /**
-     * @return string
-     */
     public function getLastName(): string
     {
         return $this->lastName;

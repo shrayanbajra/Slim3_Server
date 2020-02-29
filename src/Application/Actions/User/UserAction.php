@@ -9,9 +9,6 @@ use Psr\Log\LoggerInterface;
 
 abstract class UserAction extends Action
 {
-    /**
-     * @var UserRepository
-     */
     protected $userRepository;
 
     /**
